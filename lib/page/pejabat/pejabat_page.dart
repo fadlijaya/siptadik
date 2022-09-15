@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siptadik/page/pejabat/akun_page.dart';
 import 'package:siptadik/services.dart/pejabat_service.dart';
-import 'package:siptadik/theme/padding.dart';
 import 'package:siptadik/utils/constants.dart';
 
 import '../../theme/colors.dart';
@@ -142,18 +141,15 @@ class _PejabatPageState extends State<PejabatPage> {
                 color: kGreen2,
               ),
               SizedBox(
-                width: 12,
+                width: 16,
               ),
               Text(
                 "Beranda",
-                style: TextStyle(
-                  color: kGreen2,
-                ),
               )
             ],
           ),
           SizedBox(
-            height: 24,
+            height: 32,
           ),
           GestureDetector(
             onTap: () => Navigator.push(
@@ -171,19 +167,18 @@ class _PejabatPageState extends State<PejabatPage> {
                   color: kGreen2,
                 ),
                 SizedBox(
-                  width: 12,
+                  width: 16,
                 ),
                 Text(
                   "Akun",
                   style: TextStyle(
-                    color: kGreen2,
                   ),
                 )
               ],
             ),
           ),
           SizedBox(
-            height: 24,
+            height: 32,
           ),
           GestureDetector(
             onTap: () => Navigator.push(context,
@@ -195,13 +190,10 @@ class _PejabatPageState extends State<PejabatPage> {
                   color: kGreen2,
                 ),
                 SizedBox(
-                  width: 12,
+                  width: 16,
                 ),
                 Text(
                   "Tentang",
-                  style: TextStyle(
-                    color: kGreen2,
-                  ),
                 )
               ],
             ),

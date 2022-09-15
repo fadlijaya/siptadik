@@ -15,3 +15,4 @@ const Color kGrey5 = Color(0xFF979797);
 const Color kGreySearch = Color(0xFFE0E0E0);
 const Color kRed = Colors.red;
 const Color kBlue = Colors.blue;
+const Color kTransparant = Colors.transparent;

@@ -336,7 +336,7 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             ),
             TextButton(
                 onPressed: showPhoto,
-                child: Text(
+                child: const Text(
                   "Lihat",
                   style: TextStyle(fontSize: 12),
                 ))
@@ -355,6 +355,7 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AlertDialog(
+                backgroundColor: kTransparant,
                 content: Image.network(
                   "${widget.foto}",
                   errorBuilder: (context, error, stackTrace) {
@@ -380,9 +381,9 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
                   Center(
                     child: IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.close,
-                          color: kBlack6,
+                          color: kWhite,
                         )),
                   )
                 ],

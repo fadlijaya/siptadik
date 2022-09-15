@@ -99,9 +99,6 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
 
   @override
   void initState() {
-    if (level != "receptionist") {
-      signOut();
-    }
     checkPermissions();
     getReceptionist();
     getListTamu();
