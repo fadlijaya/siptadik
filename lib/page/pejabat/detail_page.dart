@@ -5,7 +5,9 @@ import '../../theme/colors.dart';
 import '../../theme/padding.dart';
 import '../../utils/constants.dart';
 
-class DetailTamuPage extends StatefulWidget {
+// ignore: must_be_immutable
+class DetailPage extends StatefulWidget {
+  String? receptionist;
   String? nama;
   String? nip;
   String? nik;
@@ -21,8 +23,9 @@ class DetailTamuPage extends StatefulWidget {
   String? pejabat;
   String? foto;
   String? createdAt;
-  DetailTamuPage(
+  DetailPage(
       {Key? key,
+      this.receptionist,
       this.nama,
       this.nip,
       this.nik,
@@ -41,10 +44,10 @@ class DetailTamuPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DetailTamuPage> createState() => _DetailTamuPageState();
+  State<DetailPage> createState() => _DetailPageState();
 }
 
-class _DetailTamuPageState extends State<DetailTamuPage> {
+class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -57,7 +60,7 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [buildIconBack(), buildTitlePage(), buildDetail(size)],
+            children: [buildIconBack(), buildTextReceptionist(), buildTitlePage(), buildDetail(size)],
           ),
         ),
       ),
@@ -74,6 +77,18 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
         ));
   }
 
+  Widget buildTextReceptionist() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: Text("Receptionist : ")),
+        Text("${widget.receptionist}", style: const TextStyle(fontWeight: FontWeight.w600),)
+      ],
+    );
+  }
+
   Widget buildTitlePage() {
     return const Padding(
       padding: EdgeInsets.fromLTRB(0, 16, 16, 16),
@@ -85,8 +100,10 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
   }
 
   Widget buildDetail(Size size) {
-    String hari = DateFormat('EEEE').format(DateTime.parse(widget.createdAt.toString()));
-    String tgl = DateFormat('d-MM-yyyy').format(DateTime.parse(widget.createdAt.toString()));
+    String hari =
+        DateFormat('EEEE').format(DateTime.parse(widget.createdAt.toString()));
+    String tgl = DateFormat('d-MM-yyyy')
+        .format(DateTime.parse(widget.createdAt.toString()));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -101,16 +118,16 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               child: Text(
                 "${widget.kategori}",
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             Text(
               "$hari, $tgl",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -122,12 +139,12 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             ),
             Text(
               "${widget.nama}",
-              style: TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12),
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -143,8 +160,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -160,8 +177,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -177,8 +194,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -194,8 +211,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -211,8 +228,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -228,8 +245,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -245,7 +262,7 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
+        const Divider(thickness: 1),
         const SizedBox(
           height: 8,
         ),
@@ -262,8 +279,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -279,8 +296,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -299,8 +316,8 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             )
           ],
         ),
-        Divider(thickness: 1),
-        SizedBox(
+        const Divider(thickness: 1),
+        const SizedBox(
           height: 8,
         ),
         Row(
@@ -313,16 +330,16 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             Flexible(
               child: Text(
                 "${widget.pejabat}",
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
                 textAlign: TextAlign.end,
               ),
             )
           ],
         ),
-        Divider(
+        const Divider(
           thickness: 1,
         ),
-        SizedBox(
+        const SizedBox(
           height: 24,
         ),
         Row(

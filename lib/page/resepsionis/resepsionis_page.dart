@@ -29,8 +29,8 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
   String? username;
   String? nip;
 
-  // ignore: unused_field
-  List _listTamu = [];
+  
+  List listTamu = [];
 
   Future getReceptionist() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -47,7 +47,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
     final response = await TamuServices().getDataTamu();
     if (!mounted) return;
     setState(() {
-      _listTamu = response;
+      listTamu = response;
     });
   }
 
@@ -93,7 +93,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
     });
   }
 
-  Future onRefreshListTamu() async {
+  Future onRefresh() async {
     getListTamu();
   }
 
@@ -102,7 +102,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
     checkPermissions();
     getReceptionist();
     getListTamu();
-    onRefreshListTamu();
+    onRefresh();
     super.initState();
   }
 
@@ -180,7 +180,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
   Widget buildSearch() {
     return GestureDetector(
       onTap: () {
-        showSearch(context: context, delegate: SearchPage(listTamu: _listTamu));
+        showSearch(context: context, delegate: SearchPage(listTamu: listTamu));
       },
       child: Container(
         width: double.infinity,
@@ -318,7 +318,8 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
 
   Widget buildListTamu(Size size) {
     return RefreshIndicator(
-      onRefresh: onRefreshListTamu,
+      onRefresh: onRefresh,
+      color: kGreen2,
       child: SizedBox(
         width: size.width,
         height: size.height / 2,
@@ -327,13 +328,11 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                  itemCount: _listTamu.length < 3 ? _listTamu.length : 2,
+                  itemCount: listTamu.length < 3 ? listTamu.length : 2,
                   itemBuilder: (context, i) {
-                    String date = _listTamu[i].createdAt;
-                    String hari =
-                        DateFormat('EEEE').format(DateTime.parse(date));
-                    String tgl =
-                        DateFormat('d/MM/yyyy').format(DateTime.parse(date));
+                    String date = listTamu[i].createdAt;
+                    String hari = DateFormat('EEEE').format(DateTime.parse(date));
+                    String tgl = DateFormat('d/MM/yyyy').format(DateTime.parse(date));
 
                     return Container(
                       color: kWhite,
@@ -367,7 +366,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 4, horizontal: 8),
                                 child: Text(
-                                  "${_listTamu[i].category}",
+                                  "${listTamu[i].category}",
                                   style: TextStyle(fontSize: 10),
                                 ),
                               ),
@@ -375,7 +374,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8),
                                 child: Text(
-                                  "Nama Tamu : ${_listTamu[i].nama}",
+                                  "Nama Tamu : ${listTamu[i].nama}",
                                   style: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600),
@@ -386,7 +385,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                           subtitle: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Text(
-                              "Tujuan Bertamu : ${_listTamu[i].tujuanBertamu}",
+                              "Tujuan Bertamu : ${listTamu[i].tujuanBertamu}",
                               style: const TextStyle(fontSize: 12),
                             ),
                           ),
@@ -407,22 +406,21 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DetailTamuPage(
-                                              nama: _listTamu[i].nama,
-                                              nip: _listTamu[i].nip,
-                                              nik: _listTamu[i].nik,
-                                              provinsi: _listTamu[i].provinces,
-                                              kota: _listTamu[i].regencies,
-                                              noHp: _listTamu[i].noHp,
-                                              alamat: _listTamu[i].alamat,
-                                              kategori: _listTamu[i].category,
-                                              jekel: _listTamu[i].jenisKelamin,
-                                              jabatan: _listTamu[i].jabatan,
-                                              unitKerja: _listTamu[i].unitKerja,
-                                              tujuanBertamu:
-                                                  _listTamu[i].tujuanBertamu,
-                                              pejabat: _listTamu[i].pejabat,
-                                              foto: _listTamu[i].foto,
-                                              createdAt: _listTamu[i].createdAt,
+                                              nama: listTamu[i].nama,
+                                              nip: listTamu[i].nip,
+                                              nik: listTamu[i].nik,
+                                              provinsi: listTamu[i].provinces,
+                                              kota: listTamu[i].regencies,
+                                              noHp: listTamu[i].noHp,
+                                              alamat: listTamu[i].alamat,
+                                              kategori: listTamu[i].category,
+                                              jekel: listTamu[i].jenisKelamin,
+                                              jabatan: listTamu[i].jabatan,
+                                              unitKerja: listTamu[i].unitKerja,
+                                              tujuanBertamu:listTamu[i].tujuanBertamu,
+                                              pejabat: listTamu[i].pejabat,
+                                              foto: listTamu[i].foto,
+                                              createdAt: listTamu[i].createdAt,
                                             )));
                               }
                             },

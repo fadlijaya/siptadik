@@ -6,10 +6,9 @@ import '../../theme/padding.dart';
 
 class AkunPage extends StatefulWidget {
   final String nama;
-  final String username;
   final String nip;
   const AkunPage(
-      {Key? key, required this.nama, required this.username, required this.nip})
+      {Key? key, required this.nama, required this.nip})
       : super(key: key);
 
   @override
@@ -18,14 +17,12 @@ class AkunPage extends StatefulWidget {
 
 class _AkunPageState extends State<AkunPage> {
   final TextEditingController _controllerNama = TextEditingController();
-  final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerNip = TextEditingController();
 
   @override
   void initState() {
     setState(() {
       _controllerNama.text = widget.nama;
-      _controllerUsername.text = widget.username;
       _controllerNip.text = widget.nip;
     });
     super.initState();
@@ -98,32 +95,7 @@ class _AkunPageState extends State<AkunPage> {
                   cursorColor: kGreen2,
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
-                  style: TextStyle(color: kBlack6),
-                  decoration: const InputDecoration(
-                      hintText: '', border: InputBorder.none),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: kGrey.withOpacity(0.5)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Username",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-                ),
-                TextFormField(
-                  readOnly: true,
-                  controller: _controllerUsername,
-                  cursorColor: kGreen2,
-                  keyboardType: TextInputType.name,
-                  textInputAction: TextInputAction.next,
-                  style: TextStyle(color: kBlack6),
+                  style: const TextStyle(color: kBlack6),
                   decoration: const InputDecoration(
                       hintText: '', border: InputBorder.none),
                 ),
@@ -148,7 +120,7 @@ class _AkunPageState extends State<AkunPage> {
                   cursorColor: kGreen2,
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
-                  style: TextStyle(color: kBlack6),
+                  style: const TextStyle(color: kBlack6),
                   decoration: const InputDecoration(
                       hintText: '', border: InputBorder.none),
                 ),

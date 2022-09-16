@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:siptadik/helpers/helpers.dart';
-import 'package:siptadik/page/login_page.dart';
+import 'package:siptadik/page/pejabat/pejabat_page.dart';
 import 'package:siptadik/page/resepsionis/resepsionis_page.dart';
 import 'package:siptadik/theme/colors.dart';
 import 'package:siptadik/theme/material_colors.dart';
@@ -17,11 +17,11 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-String? token;
+String? level;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  token = await Helpers().getToken();
+  level = await Helpers().getLevel();
   runApp(const MyApp());
 }
 
@@ -49,10 +49,8 @@ class SplashScreens extends StatelessWidget {
         backgroundColor: kGreen2,
         text: 'Siptadik',
         textType: TextType.TyperAnimatedText,
-        textStyle: const TextStyle(
-            fontSize: 40, color: kWhite, fontWeight: FontWeight.bold),
+        textStyle: const TextStyle(fontSize: 40, color: kWhite, fontWeight: FontWeight.bold),
         duration: 3000,
-        navigateRoute:
-            token == null ? const LoginPage() : const ResepsionisPage());
+        navigateRoute: level == 'receptionist' ? ResepsionisPage() : PejabatPage());
   }
 }

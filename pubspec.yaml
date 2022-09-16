@@ -40,6 +40,7 @@ flutter:
     - assets/ilustrasi_login.svg
     - assets/submit_done.svg
     - assets/office.png
+    - assets/no_data.svg
 
   fonts: 
     - family: Poppins

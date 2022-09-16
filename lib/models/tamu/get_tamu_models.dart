@@ -15,6 +15,8 @@ class GetTamu {
   String? foto;
   int? categoryId;
   String? category;
+  int? receptionistId;
+  String? receptionist;
   int? pejabatId;
   String? pejabat;
   String? tujuanBertamu;
@@ -38,6 +40,8 @@ class GetTamu {
       required this.foto,
       required this.categoryId,
       required this.category,
+      required this.receptionistId,
+      required this.receptionist,
       required this.pejabatId,
       required this.pejabat,
       required this.tujuanBertamu,
@@ -61,6 +65,8 @@ class GetTamu {
         jabatan: json['jabatan'],
         foto: json['foto'],
         categoryId: json['category_id'],
+        receptionistId: json['receptionist_id'],
+        receptionist: json['receptionist'],
         pejabatId: json['pejabat_id'],
         pejabat: json['pejabat'],
         category: json['category'],
