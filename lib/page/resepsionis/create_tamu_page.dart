@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -30,6 +31,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   List listProvinsi = [];
   List listKota = [];
   List listTamu = [];
+  late Timer timer;
 
   final List<Map> _listKategori = [
     {'id': 1, 'kategori': 'Tamu Pusat'},
@@ -58,8 +60,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   final TextEditingController _controllerAlamat = TextEditingController();
   final TextEditingController _controllerJabatan = TextEditingController();
   final TextEditingController _controllerUnitKerja = TextEditingController();
-  final TextEditingController _controllerTujuanBertamu =
-      TextEditingController();
+  final TextEditingController _controllerTujuanBertamu = TextEditingController();
 
   pickPhoto() async {
     final XFile? photo =
@@ -163,6 +164,12 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   void initState() {
     getProvinsi();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -797,24 +804,12 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
     if (_formKey.currentState!.validate()) {
       if (_photoFile != null) {
         showAlertDialogLoading(context);
-        /*Future.delayed(Duration(seconds: 5), () {
+        timer = Timer.periodic(const Duration(seconds: 10), (_) { 
           Navigator.pop(context);
-          _controllerNama.clear();
-          _controllerNip.clear();
-          _controllerNik.clear();
-          _controllerNoHp.clear();
-          _controllerAlamat.clear();
-          _selectedProvinsiId = null;
-          _selectedKotaId = null;
-          _jekel = null;
-          _controllerJabatan.clear();
-          _controllerUnitKerja.clear();
-          _selectedKategoriId == null;
-          //widget.id
-          _controllerTujuanBertamu.clear();
-          _photoFile = null;
-          showAlertSubmitSuccess();
-        });*/
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content:
+                    Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
+        }); 
         var response = await TamuServices().createDataTamu(
             _controllerNama.text,
             _controllerNip.text,

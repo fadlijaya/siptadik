@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siptadik/page/pejabat/akun_page.dart';
 import 'package:siptadik/services.dart/pejabat_service.dart';
+import 'package:siptadik/theme/padding.dart';
 import 'package:siptadik/utils/constants.dart';
 
 import '../../theme/colors.dart';
@@ -25,6 +26,7 @@ class _PejabatPageState extends State<PejabatPage> {
   String? username;
   String? nip;
   List listTamuPejabat = [];
+  bool status = false;
 
   Future getPejabat() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -199,7 +201,8 @@ class _PejabatPageState extends State<PejabatPage> {
                             Text(
                               "${listTamuPejabat[i].tujuanBertamu}",
                               style: const TextStyle(fontSize: 12),
-                            )
+                            ),
+                            const Divider(thickness: 1,)
                           ],
                         ),
                       ),
@@ -246,6 +249,25 @@ class _PejabatPageState extends State<PejabatPage> {
             "$nama",
             style: const TextStyle(fontSize: 14, color: kWhite),
           ),
+          const SizedBox(height: 12,),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: padding),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(textDiKantor, style: TextStyle(color: kWhite),),
+                Switch(
+                  
+                  activeColor: kWhite,
+                  value: status, 
+                  onChanged: (value){
+                  setState(() {
+                    status = value;
+                  });
+                })
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -267,6 +289,23 @@ class _PejabatPageState extends State<PejabatPage> {
               ),
               Text(
                 "Beranda",
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Row(
+            children: const [
+              Icon(
+                Icons.task,
+                color: kGreen2,
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Text(
+                "Agenda",
               )
             ],
           ),

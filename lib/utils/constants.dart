@@ -15,3 +15,4 @@ const String titleLogout = "Log out";
 const String textWelcomeBack = "Welcome Back!";
 const String textInformasi = "Silahkan masukkan informasi akun anda";
 const String textTamuTerbaru = "Tamu Terbaru";
+const String textDiKantor = "Di Kantor";
