@@ -73,9 +73,10 @@ class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
       child: ListView.builder(
           itemCount: _listTamu.length,
           itemBuilder: (context, i) {
-            String date = _listTamu[i].createdAt;
-            String hari = DateFormat('EEEE').format(DateTime.parse(date));
-            String tgl = DateFormat('d/MM/yyyy').format(DateTime.parse(date));
+            String dt = _listTamu[i].createdAt;
+            String day = DateFormat.EEEE("id_ID").format(DateTime.parse(dt));
+            String date = DateFormat.d("id_ID").format(DateTime.parse(dt));
+            String monthYears = DateFormat.yMMM("id_ID").format(DateTime.parse(dt));
 
             return Container(
               color: kWhite,
@@ -85,7 +86,7 @@ class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      hari,
+                      "$day",
                       style: const TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 14),
                     ),
@@ -93,7 +94,7 @@ class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
                       height: 4,
                     ),
                     Text(
-                      tgl,
+                      "$date $monthYears",
                       style: TextStyle(fontSize: 12),
                     )
                   ],

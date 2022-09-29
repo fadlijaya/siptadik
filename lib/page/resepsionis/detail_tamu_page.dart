@@ -85,8 +85,9 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
   }
 
   Widget buildDetail(Size size) {
-    String hari = DateFormat('EEEE').format(DateTime.parse(widget.createdAt.toString()));
-    String tgl = DateFormat('d-MM-yyyy').format(DateTime.parse(widget.createdAt.toString()));
+    String day = DateFormat.EEEE("id_ID").format(DateTime.parse(widget.createdAt.toString()));
+    String date = DateFormat.d("id_ID").format(DateTime.parse(widget.createdAt.toString()));
+    String monthYears = DateFormat.yMMM("id_ID").format(DateTime.parse(widget.createdAt.toString()));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -105,7 +106,7 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
               ),
             ),
             Text(
-              "$hari, $tgl",
+              "$day, $date $monthYears",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             )
           ],

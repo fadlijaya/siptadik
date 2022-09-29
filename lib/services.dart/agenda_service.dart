@@ -7,6 +7,7 @@ import '../helpers/helpers.dart';
 import '../models/agenda/post_agenda_models.dart';
 import '../models/agenda/response_agenda_models.dart';
 import '../models/agenda_models.dart';
+import '../models/response_models.dart';
 import '../utils/config.dart';
 
 class AgendaService {
@@ -26,8 +27,8 @@ class AgendaService {
     }
   }
 
-  fetchAgenda(
-      String pejabatId, String agenda, String waktu,  String tempat, String keterangan) async {
+  fetchAgenda(String pejabatId, String agenda, String waktu, String tempat,
+      String keterangan) async {
     String token = await Helpers().getToken() ?? "";
     var baseResponse;
     var url = Uri.parse("$API/pejabat/agenda/store");
@@ -57,5 +58,28 @@ class AgendaService {
     } on Exception catch (_) {
       return baseResponse;
     }
+  }
+}
+
+Future<Response> updateStatus(String readyAtOffice) async {
+  String token = await Helpers().getToken() ?? "";
+  int idPejabat = await Helpers().getIdPejabat() as int;
+  final response = await http.post(
+    Uri.parse('$API/pejabat/update/$idPejabat'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'ready_at_office': readyAtOffice,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    var responseJson = jsonDecode(response.body);
+    var message = responseJson['message'];
+    print(message);
+    return Response.fromJson(responseJson);
+  } else {
+    throw Exception('Failed to create album.');
   }
 }

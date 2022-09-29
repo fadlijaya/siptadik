@@ -12,6 +12,8 @@ class Pejabat {
   int? agamaId;
   String? agama;
   String? status;
+  int? readyAtOffice;
+  String? diKantor;
   String? foto;
   String? createdAt;
   String? updatedAt;
@@ -30,6 +32,8 @@ class Pejabat {
       required this.agamaId,
       required this.agama,
       required this.status,
+      required this.readyAtOffice,
+      required this.diKantor,
       required this.foto,
       required this.createdAt,
       required this.updatedAt});
@@ -49,6 +53,8 @@ class Pejabat {
         agamaId: json['agama_id'],
         agama: json['agama'],
         status: json['status'],
+        readyAtOffice: json['ready_at_office'],
+        diKantor: json['di_kantor'],
         foto: json['foto'],
         createdAt: json['created_at'],
         updatedAt: json['updated_at']);

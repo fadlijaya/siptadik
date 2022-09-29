@@ -29,7 +29,6 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
   String? username;
   String? nip;
 
-  
   List listTamu = [];
 
   Future getReceptionist() async {
@@ -272,14 +271,16 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
 
   Widget buildDateTime() {
     final dt = DateTime.now();
-    String dtNow = DateFormat.yMMMMEEEEd().format(dt);
+    String day = DateFormat.EEEE("id_ID").format(dt);
+    String date = DateFormat.d("id_ID").format(dt);
+    String monthYears = DateFormat.yMMM("id_ID").format(dt);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: padding),
           child: Text(
-            dtNow,
+            "Hari ini, $day $date $monthYears",
             style: const TextStyle(fontSize: 12),
           ),
         ),
@@ -330,9 +331,13 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
               child: ListView.builder(
                   itemCount: listTamu.length < 3 ? listTamu.length : 2,
                   itemBuilder: (context, i) {
-                    String date = listTamu[i].createdAt;
-                    String hari = DateFormat('EEEE').format(DateTime.parse(date));
-                    String tgl = DateFormat('d/MM/yyyy').format(DateTime.parse(date));
+                    String dt = listTamu[i].createdAt;
+                    String day =
+                        DateFormat.EEEE("id_ID").format(DateTime.parse(dt));
+                    String date =
+                        DateFormat.d("id_ID").format(DateTime.parse(dt));
+                    String monthYears =
+                        DateFormat.yMMM("id_ID").format(DateTime.parse(dt));
 
                     return Container(
                       color: kWhite,
@@ -342,7 +347,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                hari,
+                                "$day",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600, fontSize: 14),
                               ),
@@ -350,7 +355,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                                 height: 4,
                               ),
                               Text(
-                                tgl,
+                                "$date $monthYears",
                                 style: TextStyle(fontSize: 12),
                               )
                             ],
@@ -417,7 +422,8 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                                               jekel: listTamu[i].jenisKelamin,
                                               jabatan: listTamu[i].jabatan,
                                               unitKerja: listTamu[i].unitKerja,
-                                              tujuanBertamu:listTamu[i].tujuanBertamu,
+                                              tujuanBertamu:
+                                                  listTamu[i].tujuanBertamu,
                                               pejabat: listTamu[i].pejabat,
                                               foto: listTamu[i].foto,
                                               createdAt: listTamu[i].createdAt,

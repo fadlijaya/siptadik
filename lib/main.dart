@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:siptadik/helpers/helpers.dart';
 import 'package:siptadik/page/pejabat/agenda_page.dart';
 import 'package:siptadik/page/pejabat/pejabat_page.dart';
@@ -23,7 +24,7 @@ String? level;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   level = await Helpers().getLevel();
-  runApp(const MyApp());
+  await initializeDateFormatting('id_ID', null).then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

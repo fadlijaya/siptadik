@@ -8,6 +8,8 @@ import 'package:siptadik/services.dart/pejabat_service.dart';
 import 'package:siptadik/theme/padding.dart';
 import 'package:siptadik/utils/constants.dart';
 
+import '../../models/response_models.dart';
+import '../../services.dart/agenda_service.dart';
 import '../../theme/colors.dart';
 import '../login_page.dart';
 import '../resepsionis/akun/tentang_page.dart';
@@ -28,6 +30,7 @@ class _PejabatPageState extends State<PejabatPage> {
   String? nip;
   List listTamuPejabat = [];
   bool status = false;
+  Future<Response>? _futureStatus;
 
   Future getPejabat() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -81,13 +84,11 @@ class _PejabatPageState extends State<PejabatPage> {
         ),
       ),
       body: Container(
-        width: size.width,
-        height: size.height,
-        padding: const EdgeInsets.all(8),
-        child: listTamuPejabat.isEmpty
-        ? buildNoData()
-        : buildListTamuPejabat()
-      ),
+          width: size.width,
+          height: size.height,
+          padding: const EdgeInsets.all(8),
+          child:
+              listTamuPejabat.isEmpty ? buildNoData() : buildListTamuPejabat()),
     );
   }
 
@@ -95,10 +96,23 @@ class _PejabatPageState extends State<PejabatPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SvgPicture.asset('assets/no_data.svg', width: 60,),
-        const SizedBox(height: 4,),
+        SvgPicture.asset(
+          'assets/no_data.svg',
+          width: 60,
+        ),
+        const SizedBox(
+          height: 4,
+        ),
         const Text("Belum Ada Tamu")
       ],
+    );
+  }
+
+  Widget textTitle() {
+    return const Padding(
+      padding: EdgeInsets.only(top: 8, left: padding, bottom: 8),
+      child: Text(textTamuSaya,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
     );
   }
 
@@ -106,15 +120,18 @@ class _PejabatPageState extends State<PejabatPage> {
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          textTitle(),
           Expanded(
             child: ListView.builder(
                 itemCount: listTamuPejabat.length,
                 itemBuilder: (context, i) {
                   String date = listTamuPejabat[i].createdAt;
                   String day = DateFormat('d').format(DateTime.parse(date));
-                  String month = DateFormat('MMMM').format(DateTime.parse(date));
-            
+                  String month =
+                      DateFormat('MMMM').format(DateTime.parse(date));
+
                   return GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -132,7 +149,8 @@ class _PejabatPageState extends State<PejabatPage> {
                                   jekel: listTamuPejabat[i].jenisKelamin,
                                   jabatan: listTamuPejabat[i].jabatan,
                                   unitKerja: listTamuPejabat[i].unitKerja,
-                                  tujuanBertamu: listTamuPejabat[i].tujuanBertamu,
+                                  tujuanBertamu:
+                                      listTamuPejabat[i].tujuanBertamu,
                                   pejabat: listTamuPejabat[i].pejabat,
                                   foto: listTamuPejabat[i].foto,
                                   createdAt: listTamuPejabat[i].createdAt,
@@ -190,7 +208,8 @@ class _PejabatPageState extends State<PejabatPage> {
                           children: [
                             Text(
                               "${listTamuPejabat[i].nama}",
-                              style: const TextStyle(fontWeight: FontWeight.w600),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
                             ),
                             Text(
                               "${listTamuPejabat[i].jabatan}",
@@ -203,7 +222,9 @@ class _PejabatPageState extends State<PejabatPage> {
                               "${listTamuPejabat[i].tujuanBertamu}",
                               style: const TextStyle(fontSize: 12),
                             ),
-                            const Divider(thickness: 1,)
+                            const Divider(
+                              thickness: 1,
+                            )
                           ],
                         ),
                       ),
@@ -250,22 +271,31 @@ class _PejabatPageState extends State<PejabatPage> {
             "$nama",
             style: const TextStyle(fontSize: 14, color: kWhite),
           ),
-          const SizedBox(height: 12,),
+          const SizedBox(
+            height: 12,
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: padding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(textDiKantor, style: TextStyle(color: kWhite),),
+                const Text(
+                  textDiKantor,
+                  style: TextStyle(color: kWhite),
+                ),
                 Switch(
-                  
-                  activeColor: kWhite,
-                  value: status, 
-                  onChanged: (value){
-                  setState(() {
-                    status = value;
-                  });
-                })
+                    activeColor: kWhite,
+                    value: status,
+                    onChanged: (value) {
+                      setState(() {
+                        status = value;
+                        if (status == true) {
+                          _futureStatus = updateStatus('1');
+                        } else {
+                          _futureStatus = updateStatus('0');
+                        }
+                      });
+                    }),
               ],
             ),
           )
@@ -279,25 +309,29 @@ class _PejabatPageState extends State<PejabatPage> {
       padding: const EdgeInsets.fromLTRB(8, 24, 8, 200),
       child: Column(
         children: [
-          Row(
-            children: const [
-              Icon(
-                Icons.home,
-                color: kGreen2,
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
-                "Beranda",
-              )
-            ],
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Row(
+              children: const [
+                Icon(
+                  Icons.home,
+                  color: kGreen2,
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                Text(
+                  "Beranda",
+                )
+              ],
+            ),
           ),
           const SizedBox(
             height: 24,
           ),
           GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AgendaPage())),
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AgendaPage())),
             child: Row(
               children: const [
                 Icon(
@@ -378,7 +412,7 @@ class _PejabatPageState extends State<PejabatPage> {
               color: kRed,
             ),
             SizedBox(
-              width: 12,
+              width: 16,
             ),
             Text(
               "Log out",

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:siptadik/models/tamu/response_tamu_models.dart';
+import 'package:siptadik/services.dart/pejabat_service.dart';
 import 'package:siptadik/services.dart/regional_service.dart';
 import 'package:siptadik/services.dart/tamu_services.dart';
 import 'package:siptadik/theme/colors.dart';
@@ -31,7 +32,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   List listProvinsi = [];
   List listKota = [];
   List listTamu = [];
-  late Timer timer;
+  Timer? timer;
 
   final List<Map> _listKategori = [
     {'id': 1, 'kategori': 'Tamu Pusat'},
@@ -48,6 +49,16 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
     {'id': 6, 'pejabat': 'Pejabat 6'}
   ];
 
+  List _list = [];
+
+  getListPejabat() async {
+    var response = await PejabatService().getDataPejabat();
+    if (!mounted) return;
+    setState(() {
+      _list = response;
+    });
+  }
+
   String? _selectedKategoriId;
   String? _selectedProvinsiId;
   String? _selectedKotaId;
@@ -60,7 +71,8 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   final TextEditingController _controllerAlamat = TextEditingController();
   final TextEditingController _controllerJabatan = TextEditingController();
   final TextEditingController _controllerUnitKerja = TextEditingController();
-  final TextEditingController _controllerTujuanBertamu = TextEditingController();
+  final TextEditingController _controllerTujuanBertamu =
+      TextEditingController();
 
   pickPhoto() async {
     final XFile? photo =
@@ -163,12 +175,13 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   @override
   void initState() {
     getProvinsi();
+    getListPejabat();
     super.initState();
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    timer!.cancel();
     super.dispose();
   }
 
@@ -664,13 +677,34 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: padding),
                   child: DropdownButton(
-                    items: _listPejabat
+                    items: _list
                         .map((value) => DropdownMenuItem(
-                              child: Text(
-                                value['pejabat'],
-                                style: TextStyle(fontSize: 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    value.nama,
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  SizedBox(height: 4,),
+                                  value.readyAtOffice == 1
+                                  ? Row(
+                                    children: [
+                                      Icon(Icons.circle, color: kGreen, size: 8,),
+                                      SizedBox(width: 4,),
+                                      Text("Di Kantor", style: TextStyle(color: kGreen, fontSize: 10),)
+                                    ]
+                                  )
+                                  : Row(
+                                    children: [
+                                      Icon(Icons.circle, color: kGrey, size: 8,),
+                                      SizedBox(width: 4,),
+                                      Text("Tidak Di Kantor", style: TextStyle(color: kBlack6, fontSize: 10),)
+                                    ]
+                                  )
+                                ],
                               ),
-                              value: value['id'].toString(),
+                              value: value.id.toString(),
                             ))
                         .toList(),
                     onChanged: (selected) {
@@ -804,12 +838,11 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
     if (_formKey.currentState!.validate()) {
       if (_photoFile != null) {
         showAlertDialogLoading(context);
-        timer = Timer.periodic(const Duration(seconds: 10), (_) { 
+        timer = Timer.periodic(const Duration(seconds: 10), (_) {
           Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content:
-                    Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
-        }); 
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
+        });
         var response = await TamuServices().createDataTamu(
             _controllerNama.text,
             _controllerNip.text,
