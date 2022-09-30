@@ -10,4 +10,9 @@ class Helpers {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString('level');
   }
+
+  Future<int?> getIdPejabat() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getInt('id') ;
+  }
 }

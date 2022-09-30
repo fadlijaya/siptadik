@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:siptadik/helpers/helpers.dart';
+import 'package:siptadik/page/pejabat/agenda_page.dart';
 import 'package:siptadik/page/pejabat/pejabat_page.dart';
 import 'package:siptadik/page/resepsionis/resepsionis_page.dart';
 import 'package:siptadik/theme/colors.dart';
@@ -34,7 +35,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: colorTheme, fontFamily: 'Poppins'),
       initialRoute: '/',
-      routes: {'/resepsionis': (_) => ResepsionisPage()},
+      routes: {
+        '/resepsionis': (_) => ResepsionisPage(),
+        '/agenda': (_) => AgendaPage()
+        },
       home: const SplashScreens(),
     );
   }

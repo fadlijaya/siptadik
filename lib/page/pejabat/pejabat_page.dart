@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:siptadik/page/pejabat/agenda_page.dart';
 import 'package:siptadik/page/pejabat/akun_page.dart';
 import 'package:siptadik/services.dart/pejabat_service.dart';
 import 'package:siptadik/theme/padding.dart';
@@ -295,19 +296,22 @@ class _PejabatPageState extends State<PejabatPage> {
           const SizedBox(
             height: 24,
           ),
-          Row(
-            children: const [
-              Icon(
-                Icons.task,
-                color: kGreen2,
-              ),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
-                "Agenda",
-              )
-            ],
+          GestureDetector(
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AgendaPage())),
+            child: Row(
+              children: const [
+                Icon(
+                  Icons.task,
+                  color: kGreen2,
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                Text(
+                  "Agenda",
+                )
+              ],
+            ),
           ),
           const SizedBox(
             height: 24,
