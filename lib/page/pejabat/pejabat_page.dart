@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:siptadik/helpers/helpers.dart';
 import 'package:siptadik/page/pejabat/agenda_page.dart';
 import 'package:siptadik/page/pejabat/akun_page.dart';
 import 'package:siptadik/services.dart/pejabat_service.dart';
@@ -127,10 +128,9 @@ class _PejabatPageState extends State<PejabatPage> {
             child: ListView.builder(
                 itemCount: listTamuPejabat.length,
                 itemBuilder: (context, i) {
-                  String date = listTamuPejabat[i].createdAt;
-                  String day = DateFormat('d').format(DateTime.parse(date));
-                  String month =
-                      DateFormat('MMMM').format(DateTime.parse(date));
+                  String dt = listTamuPejabat[i].createdAt;
+                  String date = DateFormat.d("id_ID").format(DateTime.parse(dt));
+                  String month = DateFormat.MMM("id_ID").format(DateTime.parse(dt));
 
                   return GestureDetector(
                     onTap: () => Navigator.push(
@@ -149,8 +149,7 @@ class _PejabatPageState extends State<PejabatPage> {
                                   jekel: listTamuPejabat[i].jenisKelamin,
                                   jabatan: listTamuPejabat[i].jabatan,
                                   unitKerja: listTamuPejabat[i].unitKerja,
-                                  tujuanBertamu:
-                                      listTamuPejabat[i].tujuanBertamu,
+                                  tujuanBertamu: listTamuPejabat[i].tujuanBertamu,
                                   pejabat: listTamuPejabat[i].pejabat,
                                   foto: listTamuPejabat[i].foto,
                                   createdAt: listTamuPejabat[i].createdAt,
@@ -197,7 +196,7 @@ class _PejabatPageState extends State<PejabatPage> {
                               ),
                             ),
                             Text(
-                              "$day ${month.substring(0, 3)}",
+                              "$date ${month.substring(0, 3)}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 12),
                             )

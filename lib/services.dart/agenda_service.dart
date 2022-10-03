@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:siptadik/models/agenda/get_agenda_models.dart';
 
 import '../helpers/helpers.dart';
+import '../models/agenda/delete_agenda_models.dart';
 import '../models/agenda/post_agenda_models.dart';
 import '../models/agenda/response_agenda_models.dart';
 import '../models/agenda_models.dart';
@@ -58,6 +59,18 @@ class AgendaService {
     } on Exception catch (_) {
       return baseResponse;
     }
+  }
+}
+
+Future<ResponseAgenda> deleteAgenda(int id) async {
+  var url = Uri.parse("$API/pejabat/agenda/delete/$id");
+  final response = await http.post(url, headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },);
+  if (response.statusCode == 200) {
+    return ResponseAgenda<DeleteAgenda>.fromJson(jsonDecode(response.body), (data) => DeleteAgenda.fromJson(data));
+  } else {
+    return throw Exception('Failed to delete');
   }
 }
 

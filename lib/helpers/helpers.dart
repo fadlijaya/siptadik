@@ -15,4 +15,9 @@ class Helpers {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getInt('id') ;
   }
+
+  Future<int?> getReadyAtOffice() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getInt('ready_at_office') ;
+  }
 }
