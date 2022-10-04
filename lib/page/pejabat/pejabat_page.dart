@@ -192,13 +192,13 @@ class _PejabatPageState extends State<PejabatPage> {
                                   vertical: 4, horizontal: 8),
                               child: Text(
                                 "${listTamuPejabat[i].category}",
-                                style: const TextStyle(fontSize: 10),
+                                style: const TextStyle(fontSize: 10), 
                               ),
                             ),
                             Text(
                               "$date ${month.substring(0, 3)}",
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 12),
+                                  fontWeight: FontWeight.w500, fontSize: 12),
                             )
                           ],
                         ),

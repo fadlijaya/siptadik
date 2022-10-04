@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/resepsionis': (_) => ResepsionisPage(),
+        '/pejabat': (_) => PejabatPage(),
         '/agenda': (_) => AgendaPage()
         },
       home: const SplashScreens(),

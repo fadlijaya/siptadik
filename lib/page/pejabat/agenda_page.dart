@@ -41,7 +41,7 @@ class _AgendaPageState extends State<AgendaPage> {
   }
 
   Future onRefresh() async {
-    getDataAgenda();
+    await getDataAgenda();
   }
 
   @override
@@ -53,6 +53,7 @@ class _AgendaPageState extends State<AgendaPage> {
 
   createAgenda() {
     showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: ((context, setState) {
@@ -63,94 +64,96 @@ class _AgendaPageState extends State<AgendaPage> {
                 AlertDialog(
                   content: Form(
                     key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TextFormField(
-                          controller: _controllerAgenda,
-                          style: const TextStyle(fontSize: 14),
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                              labelText: 'Nama Agenda',
-                              labelStyle: TextStyle(fontSize: 14)),
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Mohon Lengkapi';
-                            }
-                            return null;
-                          },
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 12),
-                          child: TextButton.icon(
-                            onPressed: () {
-                              DatePicker.showDateTimePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime.now(),
-                                  maxTime: DateTime(2030, 6, 7, 05, 09),
-                                  onChanged: (date) {
-                                print('change $date in time zone ' +
-                                    date.timeZoneOffset.inHours.toString());
-                              }, onConfirm: (date) {
-                                print('confirm $date');
-                                String dtFormat =
-                                    DateFormat('yyyy-MM-dd hh:mm:ss')
-                                        .format(date);
-                                print(saveDt);
-                                String dt = DateFormat('dd MMMM yyyy hh:mm')
-                                    .format(date);
-                                setState(() {
-                                  saveDt = dtFormat;
-                                  dateTime = dt;
-                                });
-                              }, locale: LocaleType.id);
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextFormField(
+                            controller: _controllerAgenda,
+                            style: const TextStyle(fontSize: 14),
+                            textInputAction: TextInputAction.next,
+                            decoration: const InputDecoration(
+                                labelText: 'Nama Agenda',
+                                labelStyle: TextStyle(fontSize: 14)),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Mohon Lengkapi';
+                              }
+                              return null;
                             },
-                            icon: const Icon(
-                              Icons.timer,
-                              color: kGreen2,
-                            ),
-                            label: const Text(
-                              "Waktu Agenda",
-                              style: TextStyle(fontSize: 12),
-                            ),
                           ),
-                        ),
-                        dateTime == null
-                            ? const Text("")
-                            : Text(
-                                '$dateTime',
-                                style: const TextStyle(fontSize: 14),
+                          Container(
+                            margin: const EdgeInsets.only(top: 12),
+                            child: TextButton.icon(
+                              onPressed: () {
+                                DatePicker.showDateTimePicker(context,
+                                    showTitleActions: true,
+                                    minTime: DateTime.now(),
+                                    maxTime: DateTime(2030, 6, 7, 05, 09),
+                                    onChanged: (date) {
+                                  print('change $date in time zone ' +
+                                      date.timeZoneOffset.inHours.toString());
+                                }, onConfirm: (date) {
+                                  print('confirm $date');
+                                  String dtFormat =
+                                      DateFormat('yyyy-MM-dd HH:mm:ss')
+                                          .format(date);
+                                  print(saveDt);
+                                  String dt = DateFormat('dd MMMM yyyy HH:mm')
+                                      .format(date);
+                                  setState(() {
+                                    saveDt = dtFormat;
+                                    dateTime = dt;
+                                  });
+                                }, locale: LocaleType.id);
+                              },
+                              icon: const Icon(
+                                Icons.timer,
+                                color: kGreen2,
                               ),
-                        TextFormField(
-                          controller: _controllerTempat,
-                          style: const TextStyle(fontSize: 14),
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                              labelText: 'Tempat',
-                              labelStyle: TextStyle(fontSize: 14)),
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Mohon Lengkapi';
-                            }
-                          },
-                        ),
-                        TextFormField(
-                          controller: _controllerKeterangan,
-                          textInputAction: TextInputAction.done,
-                          style: const TextStyle(fontSize: 14),
-                          decoration: const InputDecoration(
-                            labelText: 'Keterangan',
-                            labelStyle: TextStyle(fontSize: 14),
+                              label: const Text(
+                                "Waktu Agenda",
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ),
                           ),
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Mohon Lengkapi';
-                            }
-                            return null;
-                          },
-                          maxLines: 3,
-                        ),
-                      ],
+                          dateTime == null
+                              ? const Text("")
+                              : Text(
+                                  '$dateTime',
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                          TextFormField(
+                            controller: _controllerTempat,
+                            style: const TextStyle(fontSize: 14),
+                            textInputAction: TextInputAction.next,
+                            decoration: const InputDecoration(
+                                labelText: 'Tempat',
+                                labelStyle: TextStyle(fontSize: 14)),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Mohon Lengkapi';
+                              }
+                            },
+                          ),
+                          TextFormField(
+                            controller: _controllerKeterangan,
+                            textInputAction: TextInputAction.done,
+                            style: const TextStyle(fontSize: 14),
+                            decoration: const InputDecoration(
+                              labelText: 'Keterangan',
+                              labelStyle: TextStyle(fontSize: 14),
+                            ),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Mohon Lengkapi';
+                              }
+                              return null;
+                            },
+                            maxLines: 3,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   actions: [
@@ -160,42 +163,83 @@ class _AgendaPageState extends State<AgendaPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () {
+                                _controllerAgenda.clear();
+                                dateTime = null;
+                                _controllerTempat.clear();
+                                _controllerKeterangan.clear();
+                                Navigator.pop(context);
+                              },
                               child: const Text("Batal")),
                           ElevatedButton(
                               onPressed: () async {
                                 int idPejabat =
                                     await Helpers().getIdPejabat() as int;
                                 if (_formKey.currentState!.validate()) {
-                                  showAlertDialogLoading(context);
-                                  var response = await AgendaService()
-                                      .fetchAgenda(
-                                          idPejabat.toString(),
-                                          _controllerAgenda.text,
-                                          saveDt.toString(),
-                                          _controllerTempat.text,
-                                          _controllerKeterangan.text);
-
-                                  if (response != null) {
-                                    setState(() {
-                                      _postAgenda = response.data;
-                                    });
-
-                                    _controllerAgenda.clear();
-                                    saveDt = null;
-                                    _controllerTempat.clear();
-                                    _controllerKeterangan.clear();
-                                    Navigator.pushNamed(context, '/agenda');
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content:
-                                                Text("Berhasil Ditambahkan!")));
+                                  if (dateTime == null) {
+                                    Fluttertoast.showToast(
+                                        msg: "Mohon Lengkapi Waktu Agenda",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 14.0);
                                   } else {
-                                    Navigator.pop(context);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content: Text(
-                                                "Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
+                                    showAlertDialogLoading(context);
+                                    var response = await AgendaService()
+                                        .fetchAgenda(
+                                            idPejabat.toString(),
+                                            _controllerAgenda.text,
+                                            saveDt.toString(),
+                                            _controllerTempat.text,
+                                            _controllerKeterangan.text);
+
+                                    if (response != null) {
+                                      setState(() {
+                                        _postAgenda = response.data;
+                                        onRefresh();
+                                      });
+
+                                      Navigator.pop(context);
+                                      _controllerAgenda.clear();
+                                      dateTime = null;
+                                      _controllerTempat.clear();
+                                      _controllerKeterangan.clear();
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Row(
+                                        children: const [
+                                          Icon(
+                                            Icons.check_circle,
+                                            color: kGreen,
+                                            size: 20,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(textSuccess),
+                                        ],
+                                      )));
+                                    } else {
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Row(
+                                        children: const [
+                                          Icon(
+                                            Icons.info,
+                                            color: kRed,
+                                            size: 20,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(textDisconnect),
+                                        ],
+                                      )));
+                                    }
                                   }
                                 }
                               },
@@ -343,7 +387,7 @@ class _AgendaPageState extends State<AgendaPage> {
                   .format(DateTime.parse(_listAgenda[i].waktu));
               String? formatMonthYears = DateFormat.yMMM("id_ID")
                   .format(DateTime.parse(_listAgenda[i].waktu));
-              String? formatTime = DateFormat.Hm("id_ID")
+              String? formatTime = DateFormat("HH:mm","id_ID")
                   .format(DateTime.parse(_listAgenda[i].waktu));
               return Container(
                 padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
@@ -353,9 +397,9 @@ class _AgendaPageState extends State<AgendaPage> {
                     Text(
                       "$formatDay ",
                       style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+                          fontSize: 16, fontWeight: FontWeight.w600),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     Text(
                       "$formatDate $formatMonthYears",
                       style: const TextStyle(color: kBlack6, fontSize: 12),
@@ -399,10 +443,23 @@ class _AgendaPageState extends State<AgendaPage> {
                           if (value == 'hapus') {
                             setState(() {
                               _futureAgenda = deleteAgenda(_listAgenda[i].id);
+                              onRefresh();
                             });
-                            
+
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Berhasil Terhapus!"),
+                              content: Row(
+                                children: [
+                                  Icon(
+                                    Icons.delete,
+                                    color: kWhite,
+                                    size: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(textDelete),
+                                ],
+                              ),
                             ));
                           }
                         },
@@ -412,16 +469,5 @@ class _AgendaPageState extends State<AgendaPage> {
                 ),
               );
             }));
-  }
-
-  showToast() {
-    Fluttertoast.showToast(
-        msg: "Berhasil Terhapus!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: kGreen2,
-        textColor: Colors.white,
-        fontSize: 14.0);
   }
 }

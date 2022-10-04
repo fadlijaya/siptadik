@@ -19,3 +19,6 @@ const String textTamuTerbaru = "Tamu Terbaru";
 const String textDiKantor = "Di Kantor";
 const String textTambah = "Tambah";
 const String textTamuSaya = "Tamu Saya";
+const String textSuccess = "Berhasil Ditambahkan";
+const String textDelete = "Berhasil Terhapus";
+const String textDisconnect = "Gagal Terhubung ke Server";
