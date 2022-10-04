@@ -61,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
         await preferences.setString('nama', data['nama']);
         await preferences.setString('username', data['username'] ?? "");
         await preferences.setString('nip', data['nip']);
+        await preferences.setInt('ready_at_office', 1);
         // ignore: use_build_context_synchronously
         if (data['level'] == 'receptionist') {
           // ignore: use_build_context_synchronously
@@ -111,28 +112,24 @@ class _LoginPageState extends State<LoginPage> {
       code = preferences.getInt("code");
       level = preferences.getString("level");
 
-      if (code == 200) {
-        if (level == 'receptionist') {
-          // ignore: use_build_context_synchronously
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const ResepsionisPage(),
-            ),
-            (route) => false,
-          );
-        } else if (level == 'pejabat') {
-          // ignore: use_build_context_synchronously
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const PejabatPage(),
-            ),
-            (route) => false,
-          );
-        }
-      } else {
-        LoginPage();
+      if (level == 'receptionist') {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const ResepsionisPage(),
+          ),
+          (route) => false,
+        );
+      } else if (level == 'pejabat') {
+        // ignore: use_build_context_synchronously
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const PejabatPage(),
+          ),
+          (route) => false,
+        );
       }
     });
   }

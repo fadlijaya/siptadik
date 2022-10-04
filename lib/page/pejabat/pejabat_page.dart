@@ -30,7 +30,7 @@ class _PejabatPageState extends State<PejabatPage> {
   String? username;
   String? nip;
   List listTamuPejabat = [];
-  bool status = false;
+  bool? status;
   Future<Response>? _futureStatus;
 
   Future getPejabat() async {
@@ -40,6 +40,7 @@ class _PejabatPageState extends State<PejabatPage> {
       nama = preferences.getString('nama');
       username = preferences.getString('username');
       nip = preferences.getString('nip');
+      status = (preferences.getBool('status') ?? false);
     });
   }
 
@@ -53,6 +54,13 @@ class _PejabatPageState extends State<PejabatPage> {
 
   Future onRefresh() async {
     await getListTamuPejabat();
+  }
+
+  setStatusDiKantor() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setBool('status', status ?? false);
+    });
   }
 
   @override
@@ -129,8 +137,10 @@ class _PejabatPageState extends State<PejabatPage> {
                 itemCount: listTamuPejabat.length,
                 itemBuilder: (context, i) {
                   String dt = listTamuPejabat[i].createdAt;
-                  String date = DateFormat.d("id_ID").format(DateTime.parse(dt));
-                  String month = DateFormat.MMM("id_ID").format(DateTime.parse(dt));
+                  String date =
+                      DateFormat.d("id_ID").format(DateTime.parse(dt));
+                  String month =
+                      DateFormat.MMM("id_ID").format(DateTime.parse(dt));
 
                   return GestureDetector(
                     onTap: () => Navigator.push(
@@ -149,7 +159,8 @@ class _PejabatPageState extends State<PejabatPage> {
                                   jekel: listTamuPejabat[i].jenisKelamin,
                                   jabatan: listTamuPejabat[i].jabatan,
                                   unitKerja: listTamuPejabat[i].unitKerja,
-                                  tujuanBertamu: listTamuPejabat[i].tujuanBertamu,
+                                  tujuanBertamu:
+                                      listTamuPejabat[i].tujuanBertamu,
                                   pejabat: listTamuPejabat[i].pejabat,
                                   foto: listTamuPejabat[i].foto,
                                   createdAt: listTamuPejabat[i].createdAt,
@@ -192,7 +203,7 @@ class _PejabatPageState extends State<PejabatPage> {
                                   vertical: 4, horizontal: 8),
                               child: Text(
                                 "${listTamuPejabat[i].category}",
-                                style: const TextStyle(fontSize: 10), 
+                                style: const TextStyle(fontSize: 10),
                               ),
                             ),
                             Text(
@@ -284,10 +295,11 @@ class _PejabatPageState extends State<PejabatPage> {
                 ),
                 Switch(
                     activeColor: kWhite,
-                    value: status,
+                    value: status ?? false,
                     onChanged: (value) {
                       setState(() {
                         status = value;
+                        setStatusDiKantor();
                         if (status == true) {
                           _futureStatus = updateStatus('1');
                         } else {
@@ -441,13 +453,42 @@ class _PejabatPageState extends State<PejabatPage> {
                       onPressed: () => Navigator.pop(context),
                       child: const Text("Batal")),
                   TextButton(
-                      onPressed: () => signOut(context),
+                      onPressed: () {
+                        showAlertDialogLoading(context);
+                        setState(() {
+                          _futureStatus = updateStatus("0");
+                        }); 
+                        Future.delayed(Duration(seconds: 3), () => signOut(context));
+                      },
                       child: const Text("Ya")),
                 ],
               ),
             ],
           );
         });
+  }
+
+   showAlertDialogLoading(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+              margin: const EdgeInsets.only(left: padding),
+              child: const Text(
+                "Loading...",
+                style: TextStyle(fontSize: 12),
+              )),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   signOut(context) async {

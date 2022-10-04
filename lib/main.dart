@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:siptadik/helpers/helpers.dart';
+import 'package:siptadik/page/login_page.dart';
 import 'package:siptadik/page/pejabat/agenda_page.dart';
 import 'package:siptadik/page/pejabat/pejabat_page.dart';
 import 'package:siptadik/page/resepsionis/resepsionis_page.dart';
@@ -57,6 +58,6 @@ class SplashScreens extends StatelessWidget {
         textType: TextType.TyperAnimatedText,
         textStyle: const TextStyle(fontSize: 40, color: kWhite, fontWeight: FontWeight.bold),
         duration: 3000,
-        navigateRoute: level == 'receptionist' ? ResepsionisPage() : PejabatPage());
+        navigateRoute: LoginPage());
   }
 }
