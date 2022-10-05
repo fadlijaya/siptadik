@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:siptadik/models/tamu/response_tamu_models.dart';
 import 'package:siptadik/services.dart/pejabat_service.dart';
@@ -181,7 +182,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
 
   @override
   void dispose() {
-    timer!.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
@@ -686,22 +687,40 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
                                     value.nama,
                                     style: TextStyle(fontSize: 12),
                                   ),
-                                  SizedBox(height: 4,),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
                                   value.readyAtOffice == 1
-                                  ? Row(
-                                    children: [
-                                      Icon(Icons.circle, color: kGreen, size: 8,),
-                                      SizedBox(width: 4,),
-                                      Text("Di Kantor", style: TextStyle(color: kGreen, fontSize: 10),)
-                                    ]
-                                  )
-                                  : Row(
-                                    children: [
-                                      Icon(Icons.circle, color: kGrey, size: 8,),
-                                      SizedBox(width: 4,),
-                                      Text("Tidak Di Kantor", style: TextStyle(color: kBlack6, fontSize: 10),)
-                                    ]
-                                  )
+                                      ? Row(children: [
+                                          Icon(
+                                            Icons.circle,
+                                            color: kGreen,
+                                            size: 8,
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text(
+                                            "Di Kantor",
+                                            style: TextStyle(
+                                                color: kGreen, fontSize: 10),
+                                          )
+                                        ])
+                                      : Row(children: [
+                                          Icon(
+                                            Icons.circle,
+                                            color: kGrey,
+                                            size: 8,
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text(
+                                            "Tidak Di Kantor",
+                                            style: TextStyle(
+                                                color: kBlack6, fontSize: 10),
+                                          )
+                                        ])
                                 ],
                               ),
                               value: value.id.toString(),
@@ -887,15 +906,28 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
             showAlertSubmitSuccess();
           } else {
             Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content:
-                    Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
+            showScaffoldMessage();
           }
         }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Lengkapi dengan Upload Foto!")));
+        showToastAlert();
       }
     }
+  }
+
+  showScaffoldMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
+  }
+
+  showToastAlert() {
+    Fluttertoast.showToast(
+        msg: "Lengkapi dengan Upload Foto!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: kRed,
+        textColor: kWhite,
+        fontSize: 14.0);
   }
 }
