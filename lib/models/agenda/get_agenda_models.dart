@@ -1,6 +1,6 @@
 class GetAgenda {
   int? id;
-  int? pejabatId;
+  String? pejabatId;
   String? namaPejabat;
   String? jabatan;
   String? agenda;

@@ -1,5 +1,5 @@
 class DeleteAgenda <T> {
-  int? pejabatId;
+  String? pejabatId;
   String? agenda;
   String? waktu;
   String? tempat;

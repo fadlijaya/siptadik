@@ -51,6 +51,7 @@ flutter:
     - assets/office.png
     - assets/no_data.svg
     - assets/receptionist.png
+    - assets/success.gif
 
   fonts: 
     - family: Poppins

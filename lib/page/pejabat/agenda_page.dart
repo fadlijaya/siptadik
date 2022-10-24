@@ -451,7 +451,7 @@ class _AgendaPageState extends State<AgendaPage> {
                                 children: [
                                   Icon(
                                     Icons.delete,
-                                    color: kWhite,
+                                    color: kRed,
                                     size: 20,
                                   ),
                                   SizedBox(

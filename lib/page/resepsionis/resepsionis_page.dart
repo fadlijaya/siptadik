@@ -29,7 +29,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
   String? username;
   String? nip;
   List listTamu = [];
-  bool isLoading = false;
+  bool isLoading = true;
 
   Future getReceptionist() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -43,10 +43,14 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
   }
 
   getListTamu() async {
+    setState(() {
+      isLoading = true;
+    });
     final response = await TamuServices().getDataTamu();
     if (!mounted) return;
     setState(() {
       listTamu = response;
+      isLoading = false;
     });
   }
 

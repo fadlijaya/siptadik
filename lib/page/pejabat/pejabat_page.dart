@@ -32,6 +32,7 @@ class _PejabatPageState extends State<PejabatPage> {
   List listTamuPejabat = [];
   bool? status;
   Future<Response>? _futureStatus;
+  bool isLoading = true;
 
   Future getPejabat() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -45,10 +46,14 @@ class _PejabatPageState extends State<PejabatPage> {
   }
 
   getListTamuPejabat() async {
+    setState(() {
+      isLoading = true;
+    });
     final response = await PejabatService().getDataTamuPejabat();
     if (!mounted) return;
     setState(() {
       listTamuPejabat = response;
+      isLoading = false;
     });
   }
 
@@ -133,14 +138,19 @@ class _PejabatPageState extends State<PejabatPage> {
         children: [
           textTitle(),
           Expanded(
-            child: ListView.builder(
+            child: isLoading == true
+            ? Center(child: CircularProgressIndicator(),)
+            : Stack(
+              children: [
+                listTamuPejabat.isEmpty
+                ? buildNoData()
+                : Container(),
+                ListView.builder(
                 itemCount: listTamuPejabat.length,
                 itemBuilder: (context, i) {
                   String dt = listTamuPejabat[i].createdAt;
-                  String date =
-                      DateFormat.d("id_ID").format(DateTime.parse(dt));
-                  String month =
-                      DateFormat.MMM("id_ID").format(DateTime.parse(dt));
+                  String date = DateFormat.d("id_ID").format(DateTime.parse(dt));
+                  String month = DateFormat.MMM("id_ID").format(DateTime.parse(dt));
 
                   return GestureDetector(
                     onTap: () => Navigator.push(
@@ -159,8 +169,7 @@ class _PejabatPageState extends State<PejabatPage> {
                                   jekel: listTamuPejabat[i].jenisKelamin,
                                   jabatan: listTamuPejabat[i].jabatan,
                                   unitKerja: listTamuPejabat[i].unitKerja,
-                                  tujuanBertamu:
-                                      listTamuPejabat[i].tujuanBertamu,
+                                  tujuanBertamu: listTamuPejabat[i].tujuanBertamu,
                                   pejabat: listTamuPejabat[i].pejabat,
                                   foto: listTamuPejabat[i].foto,
                                   createdAt: listTamuPejabat[i].createdAt,
@@ -241,6 +250,8 @@ class _PejabatPageState extends State<PejabatPage> {
                     ),
                   );
                 }),
+              ],
+            )
           ),
         ],
       ),

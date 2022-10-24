@@ -79,7 +79,6 @@ class _DetailPageState extends State<DetailPage> {
 
   Widget buildTextReceptionist() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 4),
@@ -103,6 +102,7 @@ class _DetailPageState extends State<DetailPage> {
     String day = DateFormat.EEEE("id_ID").format(DateTime.parse(widget.createdAt.toString()));
     String date = DateFormat.d("id_ID").format(DateTime.parse(widget.createdAt.toString()));
     String monthYears = DateFormat.yMMM("id_ID").format(DateTime.parse(widget.createdAt.toString()));
+    //String times = DateFormat.Hm("id_ID").format(DateTime.parse(widget.createdAt.toString()));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -120,10 +120,7 @@ class _DetailPageState extends State<DetailPage> {
                 style: const TextStyle(fontSize: 14),
               ),
             ),
-            Text(
-              "$day, $date $monthYears",
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-            )
+            Text("$day, $date $monthYears", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),),
           ],
         ),
         const SizedBox(
@@ -362,6 +359,7 @@ class _DetailPageState extends State<DetailPage> {
 
   showPhoto() {
     showDialog(
+      barrierDismissible: false,
         context: context,
         builder: (context) {
           return Column(
@@ -370,37 +368,42 @@ class _DetailPageState extends State<DetailPage> {
             children: [
               AlertDialog(
                 backgroundColor: kTransparant,
-                content: Image.network(
-                  "${widget.foto}",
-                  errorBuilder: (context, error, stackTrace) {
-                    return Column(
-                      children: const [
-                        Icon(
-                          Icons.broken_image,
-                          color: kGrey,
-                          size: 120,
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          "Upps, Gagal Memuat Foto!",
-                          style: TextStyle(fontSize: 12),
-                        )
+                content: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.close,
+                              color: kWhite,
+                            )),
                       ],
-                    );
-                  },
+                    ),
+                    Image.network(
+                      "${widget.foto}",
+                      errorBuilder: (context, error, stackTrace) {
+                        return Column(
+                          children: const [
+                            Icon(
+                              Icons.broken_image,
+                              color: kGrey,
+                              size: 120,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              "Upps, Gagal Memuat Foto!",
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                actions: [
-                  Center(
-                    child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(
-                          Icons.close,
-                          color: kWhite,
-                        )),
-                  )
-                ],
               ),
             ],
           );

@@ -18,13 +18,17 @@ class RiwayatTamuPage extends StatefulWidget {
 
 class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
   List _listTamu = [];
-  bool isLoading = false;
+  bool isLoading = true;
 
   getListTamu() async {
+    setState(() {
+      isLoading = true;
+    });
     final response = await TamuServices().getDataTamu();
     if (!mounted) return;
     setState(() {
       _listTamu = response;
+      isLoading = false;
     });
   }
 

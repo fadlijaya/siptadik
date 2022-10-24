@@ -4,12 +4,14 @@ class Agenda {
   String? waktu;
   String? tempat;
   String? keterangan;
+  int? id;
 
   Agenda({required this.pejabatId,
       required this.agenda,
       required this.waktu,
       required this.tempat,
-      required this.keterangan});
+      required this.keterangan,
+      required this.id});
 
   factory Agenda.fromJson(Map<String, dynamic> json){
     return Agenda(
@@ -17,6 +19,8 @@ class Agenda {
       agenda: json['agenda'], 
       waktu: json['waktu'], 
       tempat: json['tempat'], 
-      keterangan: json['keterangan']);
+      keterangan: json['keterangan'],
+      id: json['id']
+      );
   }
 }

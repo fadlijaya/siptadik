@@ -5,14 +5,14 @@ class Pejabat {
   String? email;
   String? jabatanId;
   String? jabatan;
-  int? jenisKelaminId;
+  String? jenisKelaminId;
   String? jenisKelamin;
-  int? anjabId;
+  String? anjabId;
   String? anjab;
-  int? agamaId;
+  String? agamaId;
   String? agama;
   String? status;
-  int? readyAtOffice;
+  String? readyAtOffice;
   String? diKantor;
   String? foto;
   String? createdAt;

@@ -41,15 +41,6 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
     {'id': 3, 'kategori': 'Tamu Umum'}
   ];
 
-  final List<Map> _listPejabat = [
-    {'id': 1, 'pejabat': 'Pejabat 1'},
-    {'id': 2, 'pejabat': 'Pejabat 2'},
-    {'id': 3, 'pejabat': 'Pejabat 3'},
-    {'id': 4, 'pejabat': 'Pejabat 4'},
-    {'id': 5, 'pejabat': 'Pejabat 5'},
-    {'id': 6, 'pejabat': 'Pejabat 6'}
-  ];
-
   List _list = [];
 
   getListPejabat() async {
@@ -72,8 +63,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   final TextEditingController _controllerAlamat = TextEditingController();
   final TextEditingController _controllerJabatan = TextEditingController();
   final TextEditingController _controllerUnitKerja = TextEditingController();
-  final TextEditingController _controllerTujuanBertamu =
-      TextEditingController();
+  final TextEditingController _controllerTujuanBertamu = TextEditingController();
 
   pickPhoto() async {
     final XFile? photo =
@@ -149,10 +139,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
               AlertDialog(
                 content: Column(
                   children: [
-                    SvgPicture.asset(
-                      "assets/submit_done.svg",
-                      width: 90,
-                    ),
+                    Image.asset("assets/success.gif", width: 90,),
                     SizedBox(
                       height: 12,
                     ),
@@ -229,7 +216,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
       ),
     );
   }
-
+   
   Widget buildFormTamu(Size size) {
     return RefreshIndicator(
       onRefresh: refreshInputTamu,
