@@ -18,6 +18,7 @@ class RiwayatTamuPage extends StatefulWidget {
 
 class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
   List _listTamu = [];
+  bool isLoading = false;
 
   getListTamu() async {
     final response = await TamuServices().getDataTamu();
@@ -68,9 +69,19 @@ class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
     );
   }
 
+  Widget buildNoData() {
+    return const Center(child: Text("Belum ada Data", style: TextStyle(color: kGrey5),));
+  }
+
   Widget buildListTamu() {
     return Expanded(
-      child: ListView.builder(
+      child: isLoading == true
+      ? Center(child: CircularProgressIndicator(),)
+      : Stack(children: [
+        _listTamu.isEmpty
+        ? buildNoData()
+        : Container(),
+        ListView.builder(
           itemCount: _listTamu.length,
           itemBuilder: (context, i) {
             String dt = _listTamu[i].createdAt;
@@ -170,6 +181,7 @@ class _RiwayatTamuPageState extends State<RiwayatTamuPage> {
               ),
             );
           }),
+      ],)
     );
   }
 }

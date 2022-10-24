@@ -118,12 +118,7 @@ class _AkunPageState extends State<AkunPage> {
       padding: const EdgeInsets.all(padding),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: NetworkImage(
-                "https://raw.githubusercontent.com/ArjunAtlast/Profile-Card/master/assets/john-doe.png"),
-            backgroundColor: kGreen2,
-          ),
+          Image.asset("assets/receptionist.png", width: 60,),
           Padding(
             padding: const EdgeInsets.all(padding),
             child: Column(

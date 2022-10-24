@@ -13,11 +13,11 @@ class GetTamu {
   String? unitKerja;
   String? jabatan;
   String? foto;
-  int? categoryId;
+  String? categoryId;
   String? category;
-  int? receptionistId;
+  String? receptionistId;
   String? receptionist;
-  int? pejabatId;
+  String? pejabatId;
   String? pejabat;
   String? tujuanBertamu;
   String? createdAt;

@@ -64,15 +64,12 @@ class TamuServices {
 
       var response = await request.send();
       final responseStream = await http.Response.fromStream(response);
+      print(responseStream.body);
       if (response.statusCode == 200) {
-        if (responseStream.body == 'null') {
-          return throw Exception('No result');
-        } else {
-          baseResponse = ResponseTamu<PostTamu>.fromJson(
+         baseResponse = ResponseTamu<PostTamu>.fromJson(
               json.decode(responseStream.body),
               (data) => PostTamu.fromJson(data));
           return baseResponse;
-        }
       } else {
         baseResponse;
       }
@@ -81,4 +78,3 @@ class TamuServices {
     }
   }
 }
-

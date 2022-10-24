@@ -85,9 +85,12 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
   }
 
   Widget buildDetail(Size size) {
-    String day = DateFormat.EEEE("id_ID").format(DateTime.parse(widget.createdAt.toString()));
-    String date = DateFormat.d("id_ID").format(DateTime.parse(widget.createdAt.toString()));
-    String monthYears = DateFormat.yMMM("id_ID").format(DateTime.parse(widget.createdAt.toString()));
+    String day = DateFormat.EEEE("id_ID")
+        .format(DateTime.parse(widget.createdAt.toString()));
+    String date = DateFormat.d("id_ID")
+        .format(DateTime.parse(widget.createdAt.toString()));
+    String monthYears = DateFormat.yMMM("id_ID")
+        .format(DateTime.parse(widget.createdAt.toString()));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -347,6 +350,7 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
 
   showPhoto() {
     showDialog(
+      barrierDismissible: false,
         context: context,
         builder: (context) {
           return Column(
@@ -355,37 +359,42 @@ class _DetailTamuPageState extends State<DetailTamuPage> {
             children: [
               AlertDialog(
                 backgroundColor: kTransparant,
-                content: Image.network(
-                  "${widget.foto}",
-                  errorBuilder: (context, error, stackTrace) {
-                    return Column(
-                      children: const [
-                        Icon(
-                          Icons.broken_image,
-                          color: kGrey,
-                          size: 120,
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          "Upps, Gagal Memuat Foto!",
-                          style: TextStyle(fontSize: 12),
-                        )
+                content: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.close,
+                              color: kWhite,
+                            )),
                       ],
-                    );
-                  },
+                    ),
+                    Image.network(
+                      "${widget.foto}",
+                      errorBuilder: (context, error, stackTrace) {
+                        return Column(
+                          children: const [
+                            Icon(
+                              Icons.broken_image,
+                              color: kGrey,
+                              size: 120,
+                            ),
+                            SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              "Upps, Gagal Memuat Foto!",
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                actions: [
-                  Center(
-                    child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(
-                          Icons.close,
-                          color: kWhite,
-                        )),
-                  )
-                ],
               ),
             ],
           );

@@ -28,8 +28,8 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
   String? nama;
   String? username;
   String? nip;
-
   List listTamu = [];
+  bool isLoading = false;
 
   Future getReceptionist() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -162,12 +162,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
               GestureDetector(
                 onTap: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AkunPage())),
-                child: const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                      "https://raw.githubusercontent.com/ArjunAtlast/Profile-Card/master/assets/john-doe.png"),
-                  backgroundColor: kGreen2,
-                ),
+                child: Image.asset("assets/receptionist.png", width: 40,)
               ),
             ],
           )
@@ -317,6 +312,10 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
     );
   }
 
+  Widget buildNoData() {
+   return const Center(child: Text("Belum ada Data", style: TextStyle(color: kGrey5),));
+  }
+
   Widget buildListTamu(Size size) {
     return RefreshIndicator(
       onRefresh: onRefresh,
@@ -324,11 +323,16 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
       child: SizedBox(
         width: size.width,
         height: size.height / 2,
-        child: Column(
+        child: isLoading == true
+        ? Center(child: CircularProgressIndicator())
+        : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: ListView.builder(
+              child: listTamu.isEmpty
+              ? buildNoData()
+              : Stack(children: [
+                ListView.builder(
                   itemCount: listTamu.length < 3 ? listTamu.length : 2,
                   itemBuilder: (context, i) {
                     String dt = listTamu[i].createdAt;
@@ -433,6 +437,7 @@ class _ResepsionisPageState extends State<ResepsionisPage> {
                           )),
                     );
                   }),
+              ],)
             ),
           ],
         ),

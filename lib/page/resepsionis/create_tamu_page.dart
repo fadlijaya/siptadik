@@ -139,6 +139,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
 
   showAlertSubmitSuccess() {
     showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (context) {
           return Column(
@@ -857,11 +858,6 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
     if (_formKey.currentState!.validate()) {
       if (_photoFile != null) {
         showAlertDialogLoading(context);
-        timer = Timer.periodic(const Duration(seconds: 10), (_) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
-        });
         var response = await TamuServices().createDataTamu(
             _controllerNama.text,
             _controllerNip.text,
@@ -908,6 +904,9 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
             Navigator.pop(context);
             showScaffoldMessage();
           }
+        } else {
+          Navigator.pop(context);
+          showScaffoldMessage();
         }
       } else {
         showToastAlert();
@@ -916,8 +915,19 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
   }
 
   showScaffoldMessage() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Maaf, Terjadi Kesalahan, Server Tidak Merespon")));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Row(
+      children: const [
+        Padding(
+          padding: EdgeInsets.only(right: 12),
+          child: Icon(
+            Icons.info,
+            color: kWhite,
+          ),
+        ),
+        Text("Gagal Mengirim Data"),
+      ],
+    )));
   }
 
   showToastAlert() {

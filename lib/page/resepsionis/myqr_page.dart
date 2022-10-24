@@ -79,12 +79,7 @@ class _MyQRPageState extends State<MyQRPage> {
   Widget buildProfil() {
     return Column(
       children: [
-        const CircleAvatar(
-          radius: 36,
-          backgroundImage: NetworkImage(
-              "https://raw.githubusercontent.com/ArjunAtlast/Profile-Card/master/assets/john-doe.png"),
-          backgroundColor: kGreen2,
-        ),
+        Image.asset("assets/receptionist.png", width: 60,),
         const SizedBox(
           height: 8,
         ),
