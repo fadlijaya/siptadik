@@ -678,7 +678,7 @@ class _CreateTamuPageState extends State<CreateTamuPage> {
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  value.readyAtOffice == 1
+                                  value.readyAtOffice == "1"
                                       ? Row(children: [
                                           Icon(
                                             Icons.circle,

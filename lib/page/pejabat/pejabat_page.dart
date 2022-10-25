@@ -328,7 +328,7 @@ class _PejabatPageState extends State<PejabatPage> {
 
   Widget buildBody(context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(8, 24, 8, 200),
+      padding: const EdgeInsets.fromLTRB(8, 24, 0, 0),
       child: Column(
         children: [
           GestureDetector(
@@ -424,7 +424,7 @@ class _PejabatPageState extends State<PejabatPage> {
 
   Widget buildFooter(context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 24),
+      padding: const EdgeInsets.fromLTRB(8, 8, 0, 24),
       child: GestureDetector(
         onTap: () => alertDialogLogout(context),
         child: Row(
