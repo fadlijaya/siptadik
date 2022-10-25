@@ -143,8 +143,6 @@ class _AkunPageState extends State<AkunPage> {
 
   Widget buildHeader(Size size) {
     return SizedBox(
-      width: size.width,
-      height: size.height / 3.3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [buildIconBack(), buildTitlePage(), buildProfil()],

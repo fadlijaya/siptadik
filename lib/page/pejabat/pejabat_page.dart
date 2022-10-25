@@ -101,8 +101,7 @@ class _PejabatPageState extends State<PejabatPage> {
           width: size.width,
           height: size.height,
           padding: const EdgeInsets.all(8),
-          child:
-              listTamuPejabat.isEmpty ? buildNoData() : buildListTamuPejabat()),
+          child: buildListTamuPejabat()),
     );
   }
 
