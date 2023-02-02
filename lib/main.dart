@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:siptadik/helpers/helpers.dart';
-import 'package:siptadik/page/login_page.dart';
-import 'package:siptadik/page/pejabat/agenda_page.dart';
-import 'package:siptadik/page/pejabat/pejabat_page.dart';
-import 'package:siptadik/page/resepsionis/resepsionis_page.dart';
-import 'package:siptadik/theme/colors.dart';
-import 'package:siptadik/theme/material_colors.dart';
+import 'package:siptadik/pages/login_page.dart';
+import 'package:siptadik/pages/pejabat/agenda_page.dart';
+import 'package:siptadik/pages/pejabat/pejabat_page.dart';
+import 'package:siptadik/pages/resepsionis/resepsionis_page.dart';
+import 'package:siptadik/themes/colors.dart';
+import 'package:siptadik/themes/material_colors.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 class MyHttpOverrides extends HttpOverrides {

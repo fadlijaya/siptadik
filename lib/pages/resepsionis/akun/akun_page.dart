@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:siptadik/page/resepsionis/akun/data_pribadi_page.dart';
-import 'package:siptadik/page/resepsionis/akun/tentang_page.dart';
-import 'package:siptadik/page/login_page.dart';
-import 'package:siptadik/page/resepsionis/myqr_page.dart';
-import 'package:siptadik/theme/colors.dart';
+import 'package:siptadik/pages/resepsionis/akun/data_pribadi_page.dart';
+import 'package:siptadik/pages/resepsionis/akun/tentang_page.dart';
+import 'package:siptadik/pages/login_page.dart';
+import 'package:siptadik/pages/resepsionis/myqr_page.dart';
+import 'package:siptadik/themes/colors.dart';
 import 'package:siptadik/utils/constants.dart';
 
-import '../../../theme/padding.dart';
+import '../../../themes/padding.dart';
 
 class AkunPage extends StatefulWidget {
   const AkunPage({Key? key}) : super(key: key);

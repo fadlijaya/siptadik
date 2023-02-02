@@ -7,11 +7,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:siptadik/models/tamu/response_tamu_models.dart';
-import 'package:siptadik/services.dart/pejabat_service.dart';
-import 'package:siptadik/services.dart/regional_service.dart';
-import 'package:siptadik/services.dart/tamu_services.dart';
-import 'package:siptadik/theme/colors.dart';
-import 'package:siptadik/theme/padding.dart';
+import 'package:siptadik/services/pejabat_service.dart';
+import 'package:siptadik/services/regional_service.dart';
+import 'package:siptadik/services/tamu_services.dart';
+import 'package:siptadik/themes/colors.dart';
+import 'package:siptadik/themes/padding.dart';
 import 'package:siptadik/utils/constants.dart';
 import '../../models/tamu/post_tamu_models.dart';
 

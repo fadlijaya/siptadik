@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:siptadik/page/pejabat/pejabat_page.dart';
-import 'package:siptadik/page/resepsionis/resepsionis_page.dart';
+import 'package:siptadik/pages/pejabat/pejabat_page.dart';
+import 'package:siptadik/pages/resepsionis/resepsionis_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:siptadik/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
-import '../theme/colors.dart';
-import '../theme/padding.dart';
+import '../themes/colors.dart';
+import '../themes/padding.dart';
 import '../utils/config.dart';
 
 class LoginPage extends StatefulWidget {

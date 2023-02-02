@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:siptadik/page/resepsionis/detail_tamu_page.dart';
-import 'package:siptadik/theme/padding.dart';
+import 'package:siptadik/pages/resepsionis/detail_tamu_page.dart';
+import 'package:siptadik/themes/padding.dart';
 
-import '../../theme/colors.dart';
+import '../../themes/colors.dart';
 
 class SearchPage extends SearchDelegate {
   final List listTamu;

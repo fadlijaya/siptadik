@@ -3,8 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:siptadik/utils/constants.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/padding.dart';
+import '../../../themes/colors.dart';
+import '../../../themes/padding.dart';
 
 class DataPribadiPage extends StatefulWidget {
   final String nama;

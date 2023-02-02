@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siptadik/utils/constants.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../../theme/colors.dart';
-import '../../theme/padding.dart';
+import '../../themes/colors.dart';
+import '../../themes/padding.dart';
 
 class MyQRPage extends StatefulWidget {
   const MyQRPage({Key? key}) : super(key: key);

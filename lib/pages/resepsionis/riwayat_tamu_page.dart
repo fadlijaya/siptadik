@@ -3,9 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../services.dart/tamu_services.dart';
-import '../../theme/colors.dart';
-import '../../theme/padding.dart';
+import '../../services/tamu_services.dart';
+import '../../themes/colors.dart';
+import '../../themes/padding.dart';
 import '../../utils/constants.dart';
 import 'detail_tamu_page.dart';
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:siptadik/utils/constants.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/padding.dart';
+import '../../../themes/colors.dart';
+import '../../../themes/padding.dart';
 
 class TentangPage extends StatefulWidget {
   const TentangPage({Key? key}) : super(key: key);

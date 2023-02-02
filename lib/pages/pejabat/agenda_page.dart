@@ -5,13 +5,13 @@ import 'package:horizontalcalender/horizontalcalendar.dart';
 import 'package:intl/intl.dart';
 import 'package:siptadik/helpers/helpers.dart';
 import 'package:siptadik/models/agenda/post_agenda_models.dart';
-import 'package:siptadik/services.dart/agenda_service.dart';
+import 'package:siptadik/services/agenda_service.dart';
 import 'package:siptadik/utils/constants.dart';
 
 import '../../models/agenda/response_agenda_models.dart';
 import '../../models/agenda_models.dart';
-import '../../theme/colors.dart';
-import '../../theme/padding.dart';
+import '../../themes/colors.dart';
+import '../../themes/padding.dart';
 
 class AgendaPage extends StatefulWidget {
   const AgendaPage({Key? key}) : super(key: key);

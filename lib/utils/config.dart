@@ -1,1 +1,1 @@
-const String API = "https://tamu.coe69ioa.id/api/v1";
+const String API = "https://www.smarttamu.com/api/v1";

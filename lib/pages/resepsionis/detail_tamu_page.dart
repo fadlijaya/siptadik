@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../theme/colors.dart';
-import '../../theme/padding.dart';
+import '../../themes/colors.dart';
+import '../../themes/padding.dart';
 import '../../utils/constants.dart';
 
 class DetailTamuPage extends StatefulWidget {

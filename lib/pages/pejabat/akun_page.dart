@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:siptadik/utils/constants.dart';
 
-import '../../theme/colors.dart';
-import '../../theme/padding.dart';
+import '../../themes/colors.dart';
+import '../../themes/padding.dart';
 
 class AkunPage extends StatefulWidget {
   final String nama;
